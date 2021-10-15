@@ -12,11 +12,11 @@ interface Transaction {
 }
 
 interface Response{
-    transaction:Transaction;
+    transactions:Transaction;
 }
   /* eslint react/prop-types: 0 */      
 export function TransactionTable(){
-    let teste:  Transaction
+    let teste
     const [transactions, setTransasactions]= useState<Transaction[]> ([])
     
      
@@ -25,12 +25,14 @@ export function TransactionTable(){
         
         api.get('transactions').then(response => 
                 
-            setTransasactions(response.data.transactions) )
+            
+            setTransasactions(response.data.transactions))
             
             
             
-            
-    }, []);
+        },[]);
+
+
    
 
     return(
