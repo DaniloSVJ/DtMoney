@@ -1,39 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useContext} from 'react'
 import { Container } from './styles'
-import {api} from '../../services/api'
 
-interface Transaction {
-    id: number,
-    title:string,
-    amount: number,
-    type: string,
-    category: string,
-    createdAt: string,
-}
+import { useTransactions } from '../../hooks/useTransactions'
 
-interface Response{
-    transactions:Transaction;
-}
+
+
+
   /* eslint react/prop-types: 0 */      
 export function TransactionTable(){
-    let teste
-    const [transactions, setTransasactions]= useState<Transaction[]> ([])
-    
-     
-    useEffect(() => {
-                                                 
-        
-        api.get('transactions').then(response => 
-                
-            
-            setTransasactions(response.data.transactions))
-            
-            
-            
-        },[]);
-
-
-   
+  
+    const {transactions} = useTransactions()
 
     return(
         <Container>
@@ -50,26 +26,19 @@ export function TransactionTable(){
 
                     {transactions.map(transaction=>{return(
                         <tr key={transaction.id}>
-                        <td>Desenvolvimento de site</td>
-                        <td className="deposit">R$ 12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>01/05/2021</td>
+                        <td>{transaction.title}</td>
+                        <td className={transaction.type}>{
+                            new Intl.NumberFormat('pt-BR',{
+                                style: 'currency',
+                                currency:'BRL'
+                            }).format(transaction.amount)}</td>
+                        <td>{transaction.category}</td>
+                        <td>{new Intl.DateTimeFormat('pt-BR').format(
+                            new Date(transaction.createdAt)
+                        )}</td>
                     </tr>
                     )})}
-                    <tr>
-                        <td>Desenvolvimento de site</td>
-                        <td className="deposit">R$ 12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>01/05/2021</td>
-                    </tr>
-                    <tr>
-                        <td>Aluguel</td>
-                        <td className="withdraw">R$ 1.000</td>
-                        <td>Casa</td>
-                        <td>11/05/2021</td>
-                    </tr>
-                  
-
+                   |
                 </tbody>
             </table>
         </Container>
