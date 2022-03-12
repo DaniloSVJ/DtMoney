@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {darken,transparentize} from "polished"
-import { Props } from "react-modal";
+
 
 export const Container = styled.form`
 
