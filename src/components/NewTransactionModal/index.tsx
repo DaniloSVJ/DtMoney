@@ -1,6 +1,6 @@
 import Modal from 'react-modal'
-import {FormEvent, useState, useContext} from 'react'
-import { api } from '../../services/api'
+import {FormEvent, useState} from 'react'
+
 import { useTransactions } from '../../hooks/useTransactions'
 
 import { Container ,TransactionTypeContainer,RadioBox} from './styles'
